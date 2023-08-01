@@ -3,14 +3,14 @@ from create_bot import bot,dp
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.dispatcher.filters import Text
-from keybord_client import kb_client
-from keybord_client import menu_kb
-import json, string
-from data_base import sqlite_db, sqlite_train_db
+from aiogram.dispatcher.filters.state import State, StatesGroup # для работы состояний
+from aiogram.dispatcher.filters import Text # Для выхода в радактировании меню
+from keybord_client import kb_client # кнопки для бота из папки keyboard_client
+from keybord_client import menu_kb # кнопки для бота
+import json, string # Нужен для работы фильтра мата
+from data_base import sqlite_db, sqlite_train_db # Импорт из папки data_base два файла для создания базы данных.
 
-
+#СОЗДАЮ ГЛОБАЛЬНУЮ ПЕРЕМЕННУЮ ID. Она нужна для получения статуса модератора
 ID = None
 async def on_startup(_):
     print("BOT IS ONLINE")
@@ -24,7 +24,7 @@ training.register_handlers_training(dp)
 
 
     
-#MENU PANEL
+#СОЗДАЮ МАШИНУ СОСТОЯНИЙ ДЛЯ КАЛЬКУЛЯТОРА КАЛОРИЙ
 class FSMAdmin(StatesGroup):
     photo = State()
     name = State()
@@ -40,7 +40,7 @@ async def make_changes_command(message: types.Message):
     await message.delete()
 
 
-
+#КОД ДЛЯ ЗАГРУЗКИ ПЛАНА ПИТАНИЯ
 @dp.message_handler(commands=['load_Menu'], state=None)
 async def cm_start(message: types.Message):
     await FSMAdmin.photo.set()
@@ -88,7 +88,7 @@ async def load_callories(message: types.Message, state: FSMContext):
 
 
 
-#CLIENT PANEL
+#СТАРТОВАЯ ПАНЕЛЬ С КНОПКАМИ
 
 @dp.message_handler(commands=["start"])
 async def command_start(message: types.Message):
@@ -118,7 +118,7 @@ async def command_start(message: types.Message):
 async def command_start(message: types.Message):
     await sqlite_train_db.sql_read(message)
 
-
+#РЕГИСТРАЦИЯ ХЕНДЛЕРОВ. Не уверен, что регистрация была обязательна для работы, но в материалах которые я читал так делали. Впрочем, позже я разделил на разные файлы и да, тогда это актуально.
 def register_handlers_client(dp : Dispatcher):
     dp.register_message_handler(command_start, commands=['start'])
     dp.register_message_handler(command_start, commands=['help'])
@@ -132,7 +132,7 @@ def register_handlers_client(dp : Dispatcher):
 
 
 
-#ФИЛЬТР МАТЕРНОЙ ЛЕКСИКИ
+#ФИЛЬТР МАТЕРНОЙ ЛЕКСИКИ(Просто было интересно. Тут не все маты на русском языке; В частности все хранится в JSON файле, он создан через контекстный менеджер и скрипта.
 @dp.message_handler()
 async def echo_send(message : types.Message):
     for i in message.text.split(' '):
@@ -141,7 +141,7 @@ async def echo_send(message : types.Message):
             await message.delete()
 
 
-
+#ФУНКЦИЯ ЭХО ДЛЯ ФИЛЬТРА МАТА, ДОЛЖНА БЫТЬ ПОСЛЕДНЕЙ В КОДЕ, ИНАЧЕ ОН НЕ БУДЕТ РАБОТАТЬ!
 def register_handlers_other(dp : Dispatcher):
     dp.register_message_handler(echo_send)
     
