@@ -24,7 +24,7 @@ training.register_handlers_training(dp)
 
 
     
-#СОЗДАЮ МАШИНУ СОСТОЯНИЙ ДЛЯ КАЛЬКУЛЯТОРА КАЛОРИЙ
+#СОЗДАЮ МАШИНУ СОСТОЯНИЙ ДЛЯ ПЛАНА ПИТАНИЯ
 class FSMAdmin(StatesGroup):
     photo = State()
     name = State()
