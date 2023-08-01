@@ -2,7 +2,7 @@
 
 # NEW_TRAINING_BOT
 
-![Python](https://img.shields.io/badge/Python-3.8-blue)
+![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Telegram](https://img.shields.io/badge/Telegram%20Bot-aiogram-brightgreen)
 
 NEW_TRAINING_BOT - это телеграм-бот, разработанный для помощи в организации тренировок и фитнеса. Он предоставляет пользователю возможность создавать тренировочные планы, получать рекомендации по упражнениям и питанию(план питания можно редактровать и самому пользователю).
