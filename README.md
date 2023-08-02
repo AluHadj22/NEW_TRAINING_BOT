@@ -5,6 +5,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Telegram](https://img.shields.io/badge/Telegram%20Bot-aiogram-brightgreen)
 ![Json](https://img.shields.io/badge/Json-orange)
+![SQLite](https://img.shields.io/badge/SQLite-blue)
 
 
 
